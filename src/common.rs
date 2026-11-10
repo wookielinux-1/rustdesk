@@ -2506,7 +2506,17 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
     ThrottledInterval::new(i)
 }
 
+fn apply_mythsolutions_settings() {
+    let mut overwrite = config::OVERWRITE_SETTINGS.write().unwrap();
+    overwrite.insert(
+        "verification-method".to_owned(),
+        "use-permanent-password".to_owned(),
+    );
+    overwrite.insert("approve-mode".to_owned(), "password".to_owned());
+}
+
 pub fn load_custom_client() {
+    apply_mythsolutions_settings();
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
