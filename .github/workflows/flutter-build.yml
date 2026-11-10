@@ -960,6 +960,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Hardcode Mythsolutions server
+        shell: bash
+        run: |
+          perl -pi -e 's|"rs-ny\.rustdesk\.com"|"rustdesk.mythsolutions.com"|' libs/hbb_common/src/config.rs
+          perl -pi -e 's|OeVuKk5nlHiXp\+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|X6N+HcFQPH17+g2v2U3MZML97mYyik10SGPf41RP9pk=|' libs/hbb_common/src/config.rs
+          grep -n "RENDEZVOUS_SERVERS\|RS_PUB_KEY: &str" libs/hbb_common/src/config.rs
+          grep -q "rustdesk.mythsolutions.com" libs/hbb_common/src/config.rs
+
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
         uses: apple-actions/import-codesign-certs@253ddeeac23f2bdad1646faac5c8c2832e800071 # v1
@@ -1958,6 +1966,14 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Hardcode Mythsolutions server
+        shell: bash
+        run: |
+          perl -pi -e 's|"rs-ny\.rustdesk\.com"|"rustdesk.mythsolutions.com"|' libs/hbb_common/src/config.rs
+          perl -pi -e 's|OeVuKk5nlHiXp\+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|X6N+HcFQPH17+g2v2U3MZML97mYyik10SGPf41RP9pk=|' libs/hbb_common/src/config.rs
+          grep -n "RENDEZVOUS_SERVERS\|RS_PUB_KEY: &str" libs/hbb_common/src/config.rs
+          grep -q "rustdesk.mythsolutions.com" libs/hbb_common/src/config.rs
 
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
