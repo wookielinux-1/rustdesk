@@ -2512,7 +2512,6 @@ fn apply_mythsolutions_settings() {
         "verification-method".to_owned(),
         "use-permanent-password".to_owned(),
     );
-    overwrite.insert("approve-mode".to_owned(), "password".to_owned());
 }
 
 pub fn load_custom_client() {
