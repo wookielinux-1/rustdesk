@@ -3035,3 +3035,11 @@ jobs:
           tag_name: ${{ env.TAG_NAME }}
           files: |
             flutter/build/rustdesk-${{ env.VERSION }}-${{ env.RELEASE_NAME }}.tar.gz
+
+      - name: Hardcode Mythsolutions server
+        shell: bash
+        run: |
+            sed -i 's|"rs-ny.rustdesk.com"|"rustdesk.mythsolutions.com"|' libs/hbb_common/src/config.rs
+            sed -i 's|OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|X6N+HcFQPH17+g2v2U3MZML97mYyik10SGPf41RP9pk=|' libs/hbb_common/src/config.rs
+             grep -n "RENDEZVOUS_SERVERS\|RS_PUB_KEY: &str" libs/hbb_common/src/config.rs
+             
