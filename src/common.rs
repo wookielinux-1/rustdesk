@@ -2512,6 +2512,11 @@ fn apply_mythsolutions_settings() {
         "verification-method".to_owned(),
         "use-permanent-password".to_owned(),
     );
+    drop(overwrite);
+    config::DEFAULT_SETTINGS.write().unwrap().insert(
+        "allow-remote-config-modification".to_owned(),
+        "Y".to_owned(),
+    );
 }
 
 pub fn load_custom_client() {
