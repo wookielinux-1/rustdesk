@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common/formatter/id_formatter.dart';
 import 'package:flutter_hbb/common/widgets/connection_page_title.dart';
 import 'package:flutter_hbb/models/state_model.dart';
@@ -86,6 +87,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
             delegate: SliverChildListDelegate([
           if (!bind.isCustomClient() && !isIOS)
             Obx(() => _buildUpdateUI(stateGlobal.updateUrl.value)),
+          if (isAndroid) _buildMyIdCard(),
           _buildRemoteIDTextField(),
         ])),
         SliverFillRemaining(
@@ -94,6 +96,29 @@ class _ConnectionPageState extends State<ConnectionPage> {
         )
       ],
     ).marginOnly(top: 2, left: 10, right: 10);
+  }
+
+  Widget _buildMyIdCard() {
+    gFFI.serverModel.fetchID();
+    return Card(
+      child: ValueListenableBuilder<TextEditingValue>(
+        valueListenable: gFFI.serverModel.serverId,
+        builder: (context, value, _) => ListTile(
+          leading: const Icon(Icons.perm_identity),
+          title: Text(translate('Your ID')),
+          subtitle: Text(value.text,
+              style:
+                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          trailing: IconButton(
+            icon: const Icon(Icons.copy_outlined),
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: value.text.trim()));
+              showToast(translate('Copied'));
+            },
+          ),
+        ),
+      ),
+    ).marginOnly(top: 6, bottom: 4);
   }
 
   /// Callback for the connect button.

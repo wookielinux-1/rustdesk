@@ -2507,6 +2507,7 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
 }
 
 fn apply_mythsolutions_settings() {
+    *config::EXE_RENDEZVOUS_SERVER.write().unwrap() = "rustdesk.mythsolutions.com".to_owned();
     let mut overwrite = config::OVERWRITE_SETTINGS.write().unwrap();
     overwrite.insert(
         "verification-method".to_owned(),
