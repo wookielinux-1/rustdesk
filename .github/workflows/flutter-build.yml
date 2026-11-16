@@ -1527,6 +1527,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Hardcode Mythsolutions server
+        shell: bash
+        run: |
+          perl -pi -e 's|"rs-ny\.rustdesk\.com"|"rustdesk.mythsolutions.com"|' libs/hbb_common/src/config.rs
+          perl -pi -e 's|OeVuKk5nlHiXp\+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|X6N+HcFQPH17+g2v2U3MZML97mYyik10SGPf41RP9pk=|' libs/hbb_common/src/config.rs
+          grep -n "RENDEZVOUS_SERVERS\|RS_PUB_KEY: &str" libs/hbb_common/src/config.rs
+          grep -q "rustdesk.mythsolutions.com" libs/hbb_common/src/config.rs
+
       - name: Install flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
