@@ -620,6 +620,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Hardcode Mythsolutions server
+        shell: bash
+        run: |
+          perl -pi -e 's|"rs-ny\.rustdesk\.com"|"rustdesk.mythsolutions.com"|' libs/hbb_common/src/config.rs
+          perl -pi -e 's|OeVuKk5nlHiXp\+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|X6N+HcFQPH17+g2v2U3MZML97mYyik10SGPf41RP9pk=|' libs/hbb_common/src/config.rs
+          grep -n "RENDEZVOUS_SERVERS\|RS_PUB_KEY: &str" libs/hbb_common/src/config.rs
+          grep -q "rustdesk.mythsolutions.com" libs/hbb_common/src/config.rs
+
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@6aa7d9ad3df84dff01cd4596dd0fc880a7f47fce # no release tag; commit 2026-05-26
         with:
