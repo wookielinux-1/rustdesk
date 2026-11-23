@@ -3100,6 +3100,8 @@ pub mod server_side {
             if !custom_client_config.is_empty() {
                 let custom_client_config: String = custom_client_config.into();
                 crate::read_custom_client(&custom_client_config);
+            } else {
+                crate::load_custom_client();
             }
         }
         std::thread::spawn(move || start_server(true));
